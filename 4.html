@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Math.random</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <style>
+      .football {
+        background-image: url(football.png);
+        background-size: 100% 100%;
+        height: 500px;
+        width: 800px;
+		overflow: hidden;
+      }
+      /* плеер с позишн абсолют */
+      .player {
+        background-image: url(player.png);
+        background-size: 100% 100%;
+        height: 80px;
+        width: 50px;
+
+        position: absolute;
+        transition: 1s;
+        left: 0px;
+        top: 120px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="football">
+      <div class="player"></div>
+      <button onclick="movePlayer()" class="btn btn-warning">
+        Идти на рандомное расстояние
+      </button>
+    </div>
+    <script type="text/javascript">
+      /*
+		1. Создай функцию movePlayer, которая будет возвращать рандомное (случайное) число от 0 до 100.
+		2. Пропиши клик на плеера, чтобы когда кликаешь на плеера он двигался вправо (подумай, какое свойство меняется?) на рандомное растояние.
+		*/
+
+      let player = document.querySelector(".player");
+      console.log(player);
+
+      function randNum() {
+        let random = Math.round(Math.random() * 100);
+        return random;
+      }
+
+      function movePlayer() {
+      let currentLeft = parseInt(player.style.left, 10) || 0;
+      let randomDistance = randNum();
+      let newLeft = currentLeft + randomDistance;
+
+      // Получаем ширину дива .football
+      let footballWidth = document.querySelector(".football").offsetWidth;
+	  
+	  console.log(footballWidth);
+      
+      // Ограничиваем новую позицию в пределах ширины дива
+      if (newLeft + player.offsetWidth <= footballWidth) {
+        player.style.left = newLeft + "px";
+      } else {
+        // Если новая позиция выходит за пределы, устанавливаем максимально возможное значение
+        player.style.left = (footballWidth - player.offsetWidth) + "px";
+      }
+    }
+
+    </script>
+  </body>
+</html>
